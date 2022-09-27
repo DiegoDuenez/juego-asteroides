@@ -7,7 +7,7 @@ public class AsteroideScript : MonoBehaviour
     Vector2 velocity;
     int hp = 3;
 
-    int collisions;
+    int collisions, puntos = 0;
     public Sprite sprite1;
     public Sprite sprite2;
 
@@ -16,6 +16,7 @@ public class AsteroideScript : MonoBehaviour
     {
         velocity.y = -0.05f;
         collisions = 0;
+    
     }
 
     // Update is called once per frame
@@ -44,6 +45,7 @@ public class AsteroideScript : MonoBehaviour
                     collisions++;
                     break;
                 case 2:
+                    puntos++;
                     Destroy(gameObject);
                     break;
             }

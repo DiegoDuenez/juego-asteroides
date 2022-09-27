@@ -21,41 +21,61 @@ public class NaveScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            velocity.x = -0.2f; //afecta la fuerza de empuje
-            // position_current.x -= 5; // * afecta los pixeles
+            velocity.x = -0.2f; 
          
         }
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             velocity.x = 0.2f;
-            // position_current.x += 5;
             
         }
-        // transform.position = position_current;
         if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow)) velocity.x = 0;
 
-        // Crear Disparo
         if (Input.GetKeyDown(KeyCode.Space))
         {
            
             float angulo = Mathf.Round(transform.rotation.eulerAngles.z);
+            float x = 0, y = 0;
 
             if (angulo >= 0 && angulo <= 90)
             {
                 float num1 = (angulo * 100) / 90;
+                x = (num1 * -1) / 100;
+                y = 1 + x;
 
-                //Eje de y
-                float num2 = (num1 * 1) / 100;
-
-                //Eje de x
-                float num3 = 1 - num2;
-
-                PlayerPrefs.SetFloat("num2", num2);
-                PlayerPrefs.SetFloat("num3", num3);
             }
+            else if (angulo <= 180)
+            {
+                angulo = angulo - 90;
+                float num1 = (angulo * 100) / 90;
+                y = (num1 * -1) / 100;
+                x = -1 - y;
+            }
+            else if (angulo <= 270)
+            {
+
+                angulo = angulo - 180;
+                float num1 = (angulo * 100) / 90;
+                x = (num1 * 1) / 100;
+                y = -1 + x;
+
+            }
+            else if (angulo < 360)
+            {
+                angulo = angulo - 270;
+                float num1 = (angulo * 100) / 90;
+                y = (num1 * 1) / 100;
+                x = 1 - y;
+
+            }
+
+            PlayerPrefs.SetFloat("num2", x);
+            PlayerPrefs.SetFloat("num3", y);
+
 
             GameObject tiro = Instantiate(spawn_tiro,
                  transform.position, transform.rotation);
+
         }
 
         if (Input.GetKey(KeyCode.DownArrow))
@@ -65,17 +85,14 @@ public class NaveScript : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow)){
             transform.Rotate(Vector3.forward);
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Debug.Log("Angulo: " + transform.rotation.eulerAngles.z);
-        }
+       
 
     }
 
     private void FixedUpdate()
     {
         
-        GetComponent<Rigidbody2D>().position += velocity; //Componente que sirve para empujar
+        GetComponent<Rigidbody2D>().position += velocity; 
     }
 
     void OnCollisionEnter2D(Collision2D collision)

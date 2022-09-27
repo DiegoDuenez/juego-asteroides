@@ -13,7 +13,7 @@ public class LaserScript : MonoBehaviour
         float num3 = PlayerPrefs.GetFloat("num3");
 
         velocity.y = num3;
-        velocity.x = -num2;
+        velocity.x = num2;
     }
 
     // Update is called once per frame
@@ -31,7 +31,6 @@ public class LaserScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "asteroide")
         {
-           
             Destroy(gameObject);
             
         }
